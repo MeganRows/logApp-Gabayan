@@ -15,7 +15,7 @@
 
 #### The registration page collects the Last name, First name and Address of an individual.
 
-![Registration IMG](img//ind.png)
+![Registration IMG](img//index.png)
 
 
 #### The Log in page can only be access by users with an admin account.
