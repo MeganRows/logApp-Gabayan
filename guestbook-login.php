@@ -1,37 +1,25 @@
-<?php
-  require('config/config.php');
-	require('config/db.php');
-  session_start();
-  
-  if(isset($_POST['submit']))
-  {
-    //if((isset($_POST['username']) && $_POST['username'] !='') && (isset($_POST['password']) && $_POST['password'] !=''))
-	//{
-		$un= $_POST['username'];
-		$pw= $_POST['password'];
+<?php 
+    require('config/config.php');
+    require('config/db.php');
 
-		$result= $conn->query("SELECT * FROM useraccount WHERE username='$un' AND password='$pw'"); 
-
-		$row= $result ->Fetch_array();
-		$numRows= $result->num_rows;
-
-		if($numRows> 0)
-		{
-			$_SESSION['aid']= $row['id'];
-			header("location: guestbook-list.php");	
-		}
-
-		else
-		{
-			echo "Invalid Username or Password! <br> Please try again!";
-		}
-  }
-
-	//}
+  if(isset($_POST['submit'])){    
 
 
+    $username = mysqli_real_escape_string($conn,$_POST['username']);
+    $password = mysqli_real_escape_string($conn,$_POST['password']);
+
+
+    $query = "INSERT INTO USERACCOUNT(username, password) VALUES('$username', '$password')";
+
+    if(mysqli_query($conn, $query)){
+      header('location:guestbook-list.php');
+    } else {
+      echo 'ERROR: '. mysqli_error($conn);
+    }
+}
 
 ?>
+
 <?php include('inc/header.php'); ?>
   <br/>
   <div style="width:30%; margin: auto; text-align: center;">
@@ -39,9 +27,9 @@
       <img class="mb-4" src="img/bootstrap.svg" alt="" width="100" height="100">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="inputEmail" class="sr-only">Username</label>
-      <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+      <input type="text" id="username" name="username" class="form-control" placeholder="Enter Your Username" required="" autofocus="">
       <br/><label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+      <input type="password" id="password" name="password" class="form-control" placeholder="Enter Your Password" required="">
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me

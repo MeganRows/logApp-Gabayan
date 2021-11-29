@@ -1,16 +1,30 @@
 <?php
-   require('config/config.php');
-     require('config/db.php');
- 
-     $query = 'SELECT * FROM person ORDER BY pid DESC';
-     $result = mysqli_query($conn, $query);
-     $persons = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    require('config/config.php');
+    require('config/db.php');
+    // create query
+    $query = 'SELECT * FROM PERSON';
+
+    // Get result
+    $result = mysqli_query($conn, $query);
+
+    $persons = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+    // Free result
+    mysqli_free_result($result);
+
+    function mysqli($data) {
+      
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+      }
 ?>
 
 <?php include('inc/header.php'); ?>
-	<div class="container">
+    <div class="container">
     <br/>
-		<h2>Person's Log</h2>
+        <h2>Person's Log</h2>
         <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -21,14 +35,14 @@
                     <th scope="col">Log Date and Time</th>
                     </tr>
                 </thead>
-		
-			<div class="well">
+        
+            <div class="well">
                 <tbody>
                 <?php foreach($persons as $person) : ?>
                     <tr>
-                    <th scope="row"><?php echo $person['personid'];?></th>
-                    <td><?php echo $person['firstname'];?></td>
+                    <th scope="row"><?php echo $person['pid'];?></th>
                     <td><?php echo $person['lastname'];?></td>
+                    <td><?php echo $person['firstname'];?></td>
                     <td><?php echo $person['address'];?></td>
                     <td><?php echo $person['logdt'];?></td>
                     </tr>
