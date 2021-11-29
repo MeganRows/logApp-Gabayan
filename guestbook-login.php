@@ -19,7 +19,6 @@
 }
 
 ?>
-
 <?php include('inc/header.php'); ?>
   <br/>
   <div style="width:30%; margin: auto; text-align: center;">
